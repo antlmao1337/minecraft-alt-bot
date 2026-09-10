@@ -23,9 +23,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 LOCALTS_BASE = "https://localts.store"
 
-# ─────────────────────────────────────────────
 # Helpers – TheAltening
-# ─────────────────────────────────────────────
 
 async def generate_alt(session: aiohttp.ClientSession) -> dict:
     url = f"https://api.thealtening.com/v2/generate?key={ALTENING_API_KEY}&info=true"
@@ -91,9 +89,7 @@ async def get_skin_color(session: aiohttp.ClientSession, skin_hash: str | None) 
     except Exception:
         return 0x2B2D31
 
-# ─────────────────────────────────────────────
 # Helpers – Localts
-# ─────────────────────────────────────────────
 
 def localts_headers() -> dict:
     return {"X-API-Key": LOCALTS_API_KEY} if LOCALTS_API_KEY else {}
@@ -164,9 +160,7 @@ async def localts_get_order(session: aiohttp.ClientSession, order_id: str) -> di
                 resp.request_info, resp.history, status=404, message="Not Found"
             )
         return data
-# ─────────────────────────────────────────────
 # Helpers – Minecraft
-# ─────────────────────────────────────────────
 
 async def fetch_uuid(session: aiohttp.ClientSession, username: str) -> dict | None:
     url = f"https://api.mojang.com/users/profiles/minecraft/{username}"
@@ -195,9 +189,7 @@ def format_uuid(raw: str) -> str:
     raw = raw.replace("-", "")
     return f"{raw[:8]}-{raw[8:12]}-{raw[12:16]}-{raw[16:20]}-{raw[20:]}"
 
-# ─────────────────────────────────────────────
 # Events
-# ─────────────────────────────────────────────
 
 @bot.event
 async def on_ready():
@@ -208,9 +200,7 @@ async def on_ready():
     except Exception as e:
         print("Slash sync failed:", e)
 
-# ─────────────────────────────────────────────
 # Help
-# ─────────────────────────────────────────────
 
 @bot.tree.command(name="help", description="Show all commands")
 async def help_cmd(interaction: discord.Interaction):
@@ -289,9 +279,7 @@ async def help_cmd(interaction: discord.Interaction):
     embed.set_footer(text="Minecraft All-Purpose")
     await interaction.response.send_message(embed=embed)
 
-# ─────────────────────────────────────────────
 # Alt commands
-# ─────────────────────────────────────────────
 
 @bot.tree.command(name="generate", description="Generate a new alt")
 async def generate(interaction: discord.Interaction):
@@ -431,13 +419,8 @@ async def gen_prefix(ctx: commands.Context):
         except Exception as e:
             await ctx.reply(f"> Failed: `{e}`")
 
-# ─────────────────────────────────────────────
 # Localts commands
-# ─────────────────────────────────────────────
-
-# ─────────────────────────────────────────────
 # Localts commands
-# ─────────────────────────────────────────────
 
 @bot.tree.command(name="lts_balance", description="Check Localts account balance")
 async def lts_balance(interaction: discord.Interaction):
@@ -736,9 +719,7 @@ async def lts_order(interaction: discord.Interaction, order_id: str):
         except Exception as e:
             await interaction.followup.send(f"> Failed: `{e}`", ephemeral=True)
 
-# ─────────────────────────────────────────────
 # Player commands
-# ─────────────────────────────────────────────
 
 @bot.tree.command(name="uuid", description="Convert username to UUID")
 @app_commands.describe(username="Minecraft username")
@@ -850,9 +831,7 @@ async def premium_cmd(interaction: discord.Interaction, username: str):
         embed.set_footer(text="Minecraft All-Purpose")
         await interaction.followup.send(embed=embed)
 
-# ─────────────────────────────────────────────
 # Server commands
-# ─────────────────────────────────────────────
 
 @bot.tree.command(name="server", description="Full server status")
 @app_commands.describe(address="Server IP or domain")
@@ -913,9 +892,7 @@ async def ping_cmd(interaction: discord.Interaction, address: str):
         else:
             await interaction.followup.send(f"> **{address}** is **offline**")
 
-# ─────────────────────────────────────────────
 # Extra utilities
-# ─────────────────────────────────────────────
 
 @bot.tree.command(name="ports", description="Common Minecraft-related ports")
 async def ports_cmd(interaction: discord.Interaction):
