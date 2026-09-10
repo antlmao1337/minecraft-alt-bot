@@ -80,6 +80,7 @@ Supports both **TheAltening** and **Localts**, plus general player and server to
 - TheAltening API key (plan with API access)
 - Localts API key / credentials (as configured in the bot)
 
+- Localts Implementation was done last minute, so it is very lazy. 
 ### Installation
 
 ```bash
